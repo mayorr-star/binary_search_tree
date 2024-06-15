@@ -11,10 +11,10 @@ const mergeArrays = (leftHalf, rightHalf) => {
 };
 
 const sortArray = (arr) => {
-  if (arr.length === 1) return arr[0];
+  if (arr.length === 1) return arr;
   const midpoint = Math.floor(arr.length / 2);
   const leftHalf = sortArray(arr.slice(0, midpoint));
-  const rightHalf = sortArray(arr.slice(midpoint + 1));
+  const rightHalf = sortArray(arr.slice(midpoint));
   return mergeArrays(leftHalf, rightHalf);
 };
 
