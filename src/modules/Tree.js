@@ -1,7 +1,7 @@
 const Node = require("./node");
 const mergeSort = require("./mergeSort");
 
-class Tree {
+module.exports = class Tree {
   constructor(arr) {
     this.root = this.buildTree(arr);
   }
@@ -28,7 +28,21 @@ class Tree {
     }
     return newArr;
   }
+
+  insert(value) {
+    if (!this.root) {
+      root = new Node(value);
+      return this.root;
+    } else {
+      if (value < this.root.data) {
+        this.root.leftChild = this.insert(value)
+      } else if (value > this.root.data) {
+        this.root.rightChild = this.insert(value);
+      }
+      return this.root;
+    }
+  }
 }
 const newTree = new Tree([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-// console.log(newTree.buildTree([1, 4, 5, 2, 8, 6, 7, 10, 9, 15, 13, 14, 2, 4, 5]))
-console.log(newTree.buildBST([1, 2, 3, 4, 5]))
+console.log(newTree.buildTree([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+// console.log(newTree.buildBST([1, 2 , 3, 4, 5]))
