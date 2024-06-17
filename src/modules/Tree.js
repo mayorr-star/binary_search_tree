@@ -30,4 +30,19 @@ module.exports = class Tree {
     }
     return root;
   }
+
+  deleteItem(root, value) {
+    if (!root) return null;
+    else if (value < root.data) {
+      root.leftChild = this.deleteItem(root.leftChild, value);
+    } else if (value > root.data) {
+      this.rightChild = this.deleteItem(root.rightChild, value);
+    } else {
+      if (!root.leftChild && !root.rightChild) {
+        root = null;
+        return root;
+      }
+    }
+    return root;
+  }
 };
