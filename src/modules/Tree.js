@@ -21,11 +21,11 @@ module.exports = class Tree {
 
   insert(value) {
     const node = new Node(value);
-    return this.insertNode(node);
+    return (this.root = this.insertNode(node));
   }
 
   insertNode(newNode, root = this.root) {
-    if (!root) return root = newNode;
+    if (!root) return (root = newNode);
     else if (newNode.data < root.data) {
       root.leftChild = this.insertNode(newNode, root.leftChild);
     } else if (newNode.data > root.data) {
@@ -35,23 +35,23 @@ module.exports = class Tree {
   }
 
   deleteItem(value) {
-    return this.root = this.deleteNode(this.root, value);
+    return (this.root = this.deleteNode(value));
   }
 
-  deleteNode(root, value) {
+  deleteNode(value, root = this.root) {
     if (!root) return null;
 
     if (value < root.data) {
-      root.leftChild = this.deleteNode(root.leftChild, value);
+      root.leftChild = this.deleteNode(value, root.leftChild);
     } else if (value > root.data) {
-      root.rightChild = this.deleteNode(root.rightChild, value);
+      root.rightChild = this.deleteNode(value, root.rightChild);
     } else {
       if (!root.leftChild && root.rightChild) return (root = null);
       else if (!root.leftChild) return (root = root.rightChild);
       else if (!root.rightChild) return (root = root.leftChild);
       else {
         root.data = this.getMinValue(root.rightChild).data;
-        root.rightChild = this.deleteNode(root.rightChild, root.data);
+        root.rightChild = this.deleteNode(root.data, root.rightChild);
       }
     }
     return root;
@@ -62,5 +62,20 @@ module.exports = class Tree {
 
     if (!root.leftChild) return root;
     return this.getMinValue(root.leftChild);
+  }
+
+  find(value) {
+    return this.findNode(value);
+  }
+
+  findNode(value, root = this.root) {
+    if (!root) return null;
+    if (root.data === value) return root;
+
+    if (value < root.data) {
+      return this.findNode(value, root.leftChild);
+    } else if (value > root.data) {
+      return this.findNode(value, root.rightChild);
+    }
   }
 };
