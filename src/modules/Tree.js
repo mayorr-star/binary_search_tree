@@ -20,45 +20,45 @@ module.exports = class Tree {
   }
 
   insert(value) {
-    const newNode = new Node(value);
-    if (!this.root) this.root = newNode;
-    else {
-      this.insertNode(this.root, newNode);
-    }
-  }
-  
-  insertNode(root, newNode) {
-    if (newNode.data < root.data) {
-      if (!root.leftChild) root.leftChild = newNode;
-      else {
-        this.insertNode(root.leftChild,newNode);
-      }
-    } else {
-      if (!root.rightChild) root.rightChild = newNode;
-      else {
-        this.insertNode(root.rightChild, newNode);
-      }
-    }
+    const node = new Node(value);
+    return this.insertNode(node);
   }
 
-  deleteItem(root, value) {
-    if (!root) return root;
-    else if (value < root.data) {
-      root.leftChild = this.deleteItem(root.leftChild, value);
+  insertNode(newNode, root = this.root) {
+    if (!root) return root = newNode;
+    else if (newNode.data < root.data) {
+      root.leftChild = this.insertNode(newNode, root.leftChild);
+    } else if (newNode.data > root.data) {
+      root.rightChild = this.insertNode(newNode, root.rightChild);
+    }
+    return root;
+  }
+
+  deleteItem(value) {
+    return this.root = this.deleteNode(this.root, value);
+  }
+
+  deleteNode(root, value) {
+    if (!root) return null;
+
+    if (value < root.data) {
+      root.leftChild = this.deleteNode(root.leftChild, value);
     } else if (value > root.data) {
-      this.rightChild = this.deleteItem(root.rightChild, value);
+      root.rightChild = this.deleteNode(root.rightChild, value);
     } else {
-      if (!root.leftChild && !root.rightChild) {
-        root = null;
-        return root;
-      } else if (!root.leftChild) {
-        root = root.rightChild;
-        return root;
-      } else if (!root.rightChild) {
-        root = root.leftChild;
-        return root;
+      if (!root.leftChild && root.rightChild) return (root = null);
+      else if (!root.leftChild) return (root = root.rightChild);
+      else if (!root.rightChild) return (root = root.leftChild);
+      else {
       }
     }
     return root;
+  }
+
+  getMinValue(root = this.root.rightChild) {
+    if (!root) return null;
+    
+    if (!root.leftChild) console.log(root);
+    return this.getMinValue(root.leftChild);
   }
 };
