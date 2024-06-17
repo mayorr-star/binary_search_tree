@@ -19,20 +19,30 @@ module.exports = class Tree {
     return Array.from(new Set(arr));
   }
 
-  insert(root, value) {
-    if (!root) {
-      root = new Node(value);
-      return root;
-    } else if (value < root.data) {
-      root.leftChild = this.insert(root.leftChild, value);
-    } else if (value > root.data) {
-      root.rightChild = this.insert(root.rightChild, value);
+  insert(value) {
+    const newNode = new Node(value);
+    if (!this.root) this.root = newNode;
+    else {
+      this.insertNode(this.root, newNode);
     }
-    return root;
+  }
+  
+  insertNode(root, newNode) {
+    if (newNode.data < root.data) {
+      if (!root.leftChild) root.leftChild = newNode;
+      else {
+        this.insertNode(root.leftChild,newNode);
+      }
+    } else {
+      if (!root.rightChild) root.rightChild = newNode;
+      else {
+        this.insertNode(root.rightChild, newNode);
+      }
+    }
   }
 
   deleteItem(root, value) {
-    if (!root) return null;
+    if (!root) return root;
     else if (value < root.data) {
       root.leftChild = this.deleteItem(root.leftChild, value);
     } else if (value > root.data) {
@@ -40,6 +50,12 @@ module.exports = class Tree {
     } else {
       if (!root.leftChild && !root.rightChild) {
         root = null;
+        return root;
+      } else if (!root.leftChild) {
+        root = root.rightChild;
+        return root;
+      } else if (!root.rightChild) {
+        root = root.leftChild;
         return root;
       }
     }
