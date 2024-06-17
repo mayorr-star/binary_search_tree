@@ -78,4 +78,45 @@ module.exports = class Tree {
       return this.findNode(value, root.rightChild);
     }
   }
+
+  levelOrder(callback = false) {
+    if (!this.root) return null;
+    const queue = [this.root];
+    const result = [];
+    while (queue.length !== 0) {
+      const currentNode = queue[0];
+      if (currentNode.leftChild) queue.push(currentNode.leftChild);
+      if (currentNode.rightChild) queue.push(currentNode.rightChild);
+      queue.shift();
+      if (callback) {
+        callback(currentNode);
+      } else {
+        result.push(currentNode.data);
+      }
+    }
+    if (result.length !== 0) return result;
+  }
+  // RECURSIVE APPROACH
+
+  // levelOrderRecursive(queue = [this.root], callback = false, result = []) {
+  //   if (!this.root) return null;
+  //   if (queue.length === 0) {
+  //     if (result.length !== 0) return result;
+  //     return;
+  //   };
+  //   const currentNode = queue[0];
+  //   if (callback) {
+  //     callback(currentNode);
+  //   } else {
+  //     result.push(currentNode.data);
+  //   }
+  //   if (currentNode.leftChild) queue.push(currentNode.leftChild);
+  //   if (currentNode.rightChild) queue.push(currentNode.rightChild);
+  //   queue.shift();
+  //   return this.levelOrderRecursive(queue, callback, result);
+  // }
+
+  inorder(callback) {
+    
+  }
 };
