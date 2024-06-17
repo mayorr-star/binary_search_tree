@@ -50,6 +50,8 @@ module.exports = class Tree {
       else if (!root.leftChild) return (root = root.rightChild);
       else if (!root.rightChild) return (root = root.leftChild);
       else {
+        root.data = this.getMinValue(root.rightChild).data;
+        root.rightChild = this.deleteNode(root.rightChild, root.data);
       }
     }
     return root;
@@ -57,8 +59,8 @@ module.exports = class Tree {
 
   getMinValue(root = this.root.rightChild) {
     if (!root) return null;
-    
-    if (!root.leftChild) console.log(root);
+
+    if (!root.leftChild) return root;
     return this.getMinValue(root.leftChild);
   }
 };
