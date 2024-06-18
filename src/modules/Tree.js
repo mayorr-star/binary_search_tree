@@ -97,19 +97,35 @@ module.exports = class Tree {
     if (result.length !== 0) return result;
   }
 
-  inorderTraversal(root, result, callback) {
+  inOrderTraversal(root, result, callback) {
     if (!root) return null;
-    this.inorderTraversal(root.leftChild, result, callback);
+    this.inOrderTraversal(root.leftChild, result, callback);
     if (callback) {
       callback(root);
     } else {
       result.push(root.data);
     }
-    this.inorderTraversal(root.rightChild, result, callback);
+    this.inOrderTraversal(root.rightChild, result, callback);
     if (!callback) return result;
   }
 
-  inorder(callback = false) {
-    return this.inorderTraversal(this.root, [], callback);
+  inOrder(callback = false) {
+    return this.inOrderTraversal(this.root, [], callback);
+  }
+
+  preOrderTraversal(root, result, callback) {
+    if (!root) return null;
+    if (callback) {
+      callback(root);
+    } else {
+      result.push(root.data);
+    }
+    this.preOrderTraversal(root.leftChild, result, callback);
+    this.preOrderTraversal(root.rightChild, result, callback);
+    if (!callback) return result;
+  }
+
+  preOrder(callback = false) {
+    return this.preOrderTraversal(this.root, [], callback);
   }
 };
