@@ -128,4 +128,20 @@ module.exports = class Tree {
   preOrder(callback = false) {
     return this.preOrderTraversal(this.root, [], callback);
   }
+
+  postOrderTraversal(root, result, callback) {
+    if (!root) return null;
+    this.postOrderTraversal(root.leftChild, result, callback);
+    this.postOrderTraversal(root.rightChild, result, callback);
+    if (callback) {
+      callback(root);
+    } else {
+      result.push(root.data);
+    }
+    if (result.length > 0) return result;
+  }
+
+  postOrder(callback = false) {
+    return this.postOrderTraversal(this.root, [], callback);
+  }
 };
