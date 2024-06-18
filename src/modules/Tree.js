@@ -96,4 +96,20 @@ module.exports = class Tree {
     }
     if (result.length !== 0) return result;
   }
+
+  inorderTraversal(root, result, callback) {
+    if (!root) return null;
+    this.inorderTraversal(root.leftChild, result, callback);
+    if (callback) {
+      callback(root);
+    } else {
+      result.push(root.data);
+    }
+    this.inorderTraversal(root.rightChild, result, callback);
+    if (!callback) return result;
+  }
+
+  inorder(callback = false) {
+    return this.inorderTraversal(this.root, [], callback);
+  }
 };
