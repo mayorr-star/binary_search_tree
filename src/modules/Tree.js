@@ -144,4 +144,12 @@ module.exports = class Tree {
   postOrder(callback = false) {
     return this.postOrderTraversal(this.root, [], callback);
   }
+
+  height(node) {
+    if (!this.root) return;
+    if (!node) return -1;
+    let leftHeight = this.height(node.leftChild);
+    let rightHeight = this.height(node.rightChild);
+    return leftHeight > rightHeight ? leftHeight + 1 : rightHeight + 1;
+  }
 };
