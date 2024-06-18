@@ -146,7 +146,6 @@ module.exports = class Tree {
   }
 
   height(node) {
-    if (!this.root) return;
     if (!node) return -1;
     let leftHeight = this.height(node.leftChild);
     let rightHeight = this.height(node.rightChild);
