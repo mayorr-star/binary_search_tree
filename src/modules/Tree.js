@@ -147,8 +147,13 @@ module.exports = class Tree {
 
   height(node) {
     if (!node) return -1;
-    let leftHeight = this.height(node.leftChild);
-    let rightHeight = this.height(node.rightChild);
+    const leftHeight = this.height(node.leftChild);
+    const rightHeight = this.height(node.rightChild);
     return leftHeight > rightHeight ? leftHeight + 1 : rightHeight + 1;
+  }
+
+  depth(node) {
+    if (!this.root) return null;
+
   }
 };
