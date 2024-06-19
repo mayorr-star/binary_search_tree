@@ -11,6 +11,7 @@ const generateRandomNumbers = (size) => {
 };
 console.log("Building a balanced binary search tree.");
 const tree = new Tree(generateRandomNumbers(12));
+console.log("Printing tree");
 prettyPrint(tree.root);
 console.log("Confirming if tree is balanced.");
 console.log(`Is tree balanced? ${tree.isBalanced()}.`);
@@ -36,4 +37,11 @@ tree.insert(569)
 tree.insert(567)
 tree.insert(956)
 tree.insert(812)
+console.log("Printing tree");
 prettyPrint(tree.root);
+console.log("Confirming if tree is balanced.");
+console.log(`Is tree balanced? ${tree.isBalanced()}.`);
+console.log("Balancing tree");
+tree.rebalance();
+console.log("Confirming if tree is balanced.");
+console.log(`Is tree balanced? ${tree.isBalanced()}.`);
