@@ -153,7 +153,15 @@ module.exports = class Tree {
   }
 
   depth(node) {
-    if (!this.root) return null;
+    return this.getNodeDepth(node);
 
+  }
+
+  getNodeDepth(node, root = this.root, edges = 0) {
+    if (!root) return -1
+    if (root.data === node.data) return edges;
+    const leftDepth = this.getNodeDepth(node, root.leftChild, edges += 1);
+    const rightDepth = this.getNodeDepth(node, root.rightChild, edges += 1);
+    return leftDepth > rightDepth ? leftDepth : rightDepth;
   }
 };
