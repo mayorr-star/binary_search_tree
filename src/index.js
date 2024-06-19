@@ -9,4 +9,5 @@ const generateRandomNumbers = (size) => {
     }
     return randomNumsarray
 }
-generateRandomNumbers(12)
+const tree = new Tree(generateRandomNumbers(12));
+prettyPrint(tree.root)
