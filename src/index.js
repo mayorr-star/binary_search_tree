@@ -11,3 +11,4 @@ const generateRandomNumbers = (size) => {
 }
 const tree = new Tree(generateRandomNumbers(12));
 prettyPrint(tree.root)
+console.log(tree.isBalanced())
